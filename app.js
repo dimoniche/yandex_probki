@@ -70,31 +70,18 @@ var intervalID = setInterval(function()
     }
     ,300000);
 
-http.createServer(app).listen(app.get('port'), function(stream)
+http.createServer(function (req, res) {
+
+    var live = req.headers['push'];
+    console.log(live);
+
+}).listen(app.get('port_phone7'),function(){
+
+        console.log('Ожидаем телефоны на порте ' + app.get('port_phone7'));
+
+    });
+
+/*http.createServer(app).listen(app.get('port'), function(stream)
 {
     console.log('Windows tile listening on port ' + app.get('port'));
-});
-
-var server = net.createServer(function (stream) {
-    console.log('server connected');
-
-    stream.on('data', function (data) {
-
-        console.log(data);
-
-    });
-
-    stream.on('close', function () {
-        console.log('server connection close');
-    });
-    stream.on('end', function () {
-        console.log('server disconnected');
-    });
-    stream.on('error', function () {
-        console.log('server error');
-    });
-});
-
-server.listen(app.get('port_phone7'), function() {
-    console.log('ожидаем телефоны');
-});
+});*/
