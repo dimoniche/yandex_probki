@@ -15,8 +15,8 @@ var mpns = require('mpns');
 var app = express();
 
 // all environments
-app.set('port', 5000);
-app.set('port_phone7', 5001);
+app.set('port', 5002);
+app.set('port_phone7', 5003);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -55,6 +55,10 @@ var options = {
     backContent: TextBoxBackContent
 };
 
+// количество пользователей
+var count_user;
+var URI;
+
 // обновление плитки
 function update_tile()
 {
@@ -85,3 +89,35 @@ http.createServer(function (req, res) {
 {
     console.log('Windows tile listening on port ' + app.get('port'));
 });*/
+
+var databaseUrl = 'mydb_tile_update'; // "username:password@example.com/mydb"
+var collections = ["users"];
+
+var mongojs = require('mongojs');
+var db = mongojs(databaseUrl,collections);
+//var mycollection = db.collection('mycollection');
+
+// Открываем коллекцию. Если её не существует, она будет создана
+ /*db.collection('tile_user', function(err, collection)
+ {
+     // Добавляем три элемента
+     for(var i = 0; i < 3; i++)
+     {    collection.insert({'users':i});
+     }
+ });*/
+
+db.users.find({name: "iLoveMongo"}, function(err, users) {
+    if( err || !users)
+    { // no user
+        console.log("No female users found");
+    }
+    else users.forEach( function(femaleUser) {
+        console.log(femaleUser);
+    } );
+});
+
+/*db.users.save({URIs: "srirangan@gmail.com", name: "iLoveMongo"}, function(err, saved) {
+    if( err || !saved ) console.log("User not saved");
+    else console.log("User saved");
+});*/
+
