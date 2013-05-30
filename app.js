@@ -28,6 +28,14 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// База данных
+var databaseUrl = 'dimoniche.cloudapp.net/mydb_tile_update';
+var collections = ["users"];
+
+var mongojs = require('mongojs');
+var db = mongojs(databaseUrl,collections);
+var mycollection = db.collection('users');
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -60,9 +68,9 @@ var count_user;
 var URI;
 
 // обновление плитки
-function update_tile()
+function update_tile(URI)
 {
-    mpns.sendTile(TextBoxUri,options);
+    mpns.sendTile(URI,options);
 
     console.log('обновляем тайл');
 }
@@ -70,54 +78,58 @@ function update_tile()
 // запустим обновление тайлов
 var intervalID = setInterval(function()
     {   // это вызывается переодически
-        update_tile();
+        db.users.find(function(err, cursor) {
+            db.users.each(function(err,item){
+
+                if(item != null)
+                {
+                    //update_tile(item.URIs);
+
+                    console.log(item);
+                }
+                else
+                {
+                    console.log('все обновили');
+                }
+            });
+        });
     }
     ,300000);
 
+// ожидание новых пользователей
 http.createServer(function (req, res) {
 
     var live = req.headers['push'];
+    var name = req.headers['name_user'];
+
+    console.log(name);
     console.log(live);
+
+    db.users.find({name: name}, function(err, users) {
+        if( err || !users)
+        { // no user
+            console.log("Такого пользователя нет - добавляем");
+
+            db.users.save({name: name, URIs: live}, function(err, saved) {
+             if( err || !saved ){
+                 console.log("User not saved");
+
+                 // нужно что  то сделать
+             }
+             else console.log("User saved");
+
+             });
+
+        }
+        else users.forEach( function(User) {
+            console.log("Такой поьзователь уже есть");
+            console.log(User);
+        } );
+    });
 
 }).listen(app.get('port_phone7'),function(){
 
         console.log('Ожидаем телефоны на порте ' + app.get('port_phone7'));
 
     });
-
-/*http.createServer(app).listen(app.get('port'), function(stream)
-{
-    console.log('Windows tile listening on port ' + app.get('port'));
-});*/
-
-var databaseUrl = 'mydb_tile_update'; // "username:password@example.com/mydb"
-var collections = ["users"];
-
-var mongojs = require('mongojs');
-var db = mongojs(databaseUrl,collections);
-//var mycollection = db.collection('mycollection');
-
-// Открываем коллекцию. Если её не существует, она будет создана
- /*db.collection('tile_user', function(err, collection)
- {
-     // Добавляем три элемента
-     for(var i = 0; i < 3; i++)
-     {    collection.insert({'users':i});
-     }
- });*/
-
-db.users.find({name: "iLoveMongo"}, function(err, users) {
-    if( err || !users)
-    { // no user
-        console.log("No female users found");
-    }
-    else users.forEach( function(femaleUser) {
-        console.log(femaleUser);
-    } );
-});
-
-/*db.users.save({URIs: "srirangan@gmail.com", name: "iLoveMongo"}, function(err, saved) {
-    if( err || !saved ) console.log("User not saved");
-    else console.log("User saved");
-});*/
 
