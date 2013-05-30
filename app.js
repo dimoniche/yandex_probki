@@ -1,4 +1,4 @@
-
+﻿
 /**
  * Module dependencies.
  */
@@ -29,7 +29,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // База данных
-var databaseUrl = 'dimoniche.cloudapp.net/mydb_tile_update';
+var databaseUrl = 'dimoniche.cloudapp.net/tile_update';
 var collections = ["users"];
 
 var mongojs = require('mongojs');
@@ -83,7 +83,7 @@ var intervalID = setInterval(function()
 
                 if(item != null)
                 {
-                    //update_tile(item.URIs);
+                    update_tile(item.URIs);
 
                     console.log(item);
                 }
@@ -100,17 +100,15 @@ var intervalID = setInterval(function()
 http.createServer(function (req, res) {
 
     var live = req.headers['push'];
-    var name = req.headers['name_user'];
 
-    console.log(name);
     console.log(live);
 
-    db.users.find({name: name}, function(err, users) {
-        if( err || !users)
+    db.users.find({URIs: live}, function(err, users) {
+        if( err || !users.length)
         { // no user
             console.log("Такого пользователя нет - добавляем");
 
-            db.users.save({name: name, URIs: live}, function(err, saved) {
+            db.users.save({name: "name", URIs: live}, function(err, saved) {
              if( err || !saved ){
                  console.log("User not saved");
 
