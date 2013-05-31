@@ -78,20 +78,15 @@ function update_tile(URI)
 // запустим обновление тайлов
 var intervalID = setInterval(function()
     {   // это вызывается переодически
-        db.users.find(function(err, cursor) {
-            db.users.each(function(err,item){
+        db.users.find(function(err, users) {
+            for(var i = 0; i < users.length; i++)
+            {
+                update_tile(users[i].URIs);
 
-                if(item != null)
-                {
-                    update_tile(item.URIs);
+                console.log(users[i]);
+            }
 
-                    console.log(item);
-                }
-                else
-                {
-                    console.log('все обновили');
-                }
-            });
+            console.log('все обновили');
         });
     }
     ,300000);
@@ -130,4 +125,3 @@ http.createServer(function (req, res) {
         console.log('Ожидаем телефоны на порте ' + app.get('port_phone7'));
 
     });
-
