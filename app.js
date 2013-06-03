@@ -29,7 +29,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // База данных
-var databaseUrl = 'dimoniche.cloudapp.net/tile_update';
+var databaseUrl = 'dimoniche.cloudapp.net/tile_update_test';
 
 var collections      = ["users"];
 var town_collections = ["town"];
@@ -195,7 +195,7 @@ http.createServer(function (req, res) {
 
     var town;
 
-    http.get("http://geocode-maps.yandex.ru/1.x/?geocode="+latitude.toString()+","+longitude.toString()+"&format=json&kind=locality&results=1",
+    http.get("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&kind=locality&results=1",
         function(res) {
         // получим название города поьзователя
         var data = '';
@@ -209,46 +209,45 @@ http.createServer(function (req, res) {
             // название города нашли - вносим в базу
             var jsonobj = JSON.parse(data);
 
-            town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.name;
+            console.log("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&kind=locality&results=1");
 
-            db.users.find({URIs: live}, function(err, users) {
-                if( err || !users.length)
-                { // no user
-                    console.log("Такого пользователя нет - добавляем");
-                    console.log('Город: ' + town.toString());
+            if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject != undefined)
+            {
+                town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.name;
 
-                    db.users.save({name: "name",
-                        URIs: live,
-                        Latitude: latitude,
-                        Longitude: longitude,
-                        Town: town
-                    }, function(err, saved) {
-                        if( err || !saved ){
-                            console.log("User not saved");
-                            // нужно что  то сделать
-                        }
-                        else console.log("User saved");
+                db.users.find({URIs: live}, function(err, users) {
+                    if( err || !users.length)
+                    { // no user
+                        console.log("Такого пользователя нет - добавляем");
+                        console.log('Город: ' + town.toString());
 
-                        count_user++;
-
-                        // статистика
-                        /*db.stat.update({$set: {count_user: count_user,time: new Date()}}, function(err, saved) {
+                        db.users.save({name: "name",
+                            URIs: live,
+                            Latitude: latitude,
+                            Longitude: longitude,
+                            Town: town
+                        }, function(err, saved) {
                             if( err || !saved ){
+                                console.log("User not saved");
+                                // нужно что  то сделать
                             }
-                        });*/
-                    });
-                }
-                else users.forEach( function(User) {
-                    // пользователь есть - обновим координаты и город
-                    console.log("Такой пользователь уже есть");
-                    console.log(User);
+                            else console.log("User saved");
 
-                    db.users.update({URIs: live},{$set: {Latitude: latitude, Longitude: longitude,Town: town}}, function(err, updated) {
-                        if( err || !updated ) console.log("User not updated");
-                        else console.log("User updated");
+                            count_user++;
+                        });
+                    }
+                    else users.forEach( function(User) {
+                        // пользователь есть - обновим координаты и город
+                        console.log("Такой пользователь уже есть");
+                        console.log(User);
+
+                        db.users.update({URIs: live},{$set: {Latitude: latitude, Longitude: longitude,Town: town}}, function(err, updated) {
+                            if( err || !updated ) console.log("User not updated");
+                            else console.log("User updated");
+                        });
                     });
                 });
-            });
+            }
         });
     }).on('error', function(e) {
             console.log("Got error: " + e.message);
@@ -282,7 +281,7 @@ http.get("http://api-maps.yandex.ru/services/traffic-info/1.0/?format=json",
                 if( err || !town.length)
                 { // no user
                     console.log("Такого города нет - добавляем");
-                    console.log('Город: ' + town.name.toString());
+                    console.log('Город: ' + town.name);
 
                     db_town.town.save({name: jsonobj.GeoObjectCollection.features[i].properties.name.toString(), number: i}, function(err, saved) {
                         if( err || !saved ){
