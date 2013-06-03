@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ebb476d-19c3-40f0-9e1a-d5aece9440b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/dimoniche.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/dimoniche.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="yandex.iws" />
@@ -27,7 +25,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="244" column="38" selection-start="8944" selection-end="8944" vertical-scroll-proportion="0.5699831">
+            <state line="261" column="0" selection-start="9542" selection-end="9542" vertical-scroll-proportion="6.3895445">
               <folding />
             </state>
           </provider>
@@ -351,7 +349,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="244" column="38" selection-start="8944" selection-end="8944" vertical-scroll-proportion="0.5699831">
+        <state line="261" column="0" selection-start="9542" selection-end="9542" vertical-scroll-proportion="6.3895445">
           <folding />
         </state>
       </provider>

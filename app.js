@@ -61,23 +61,22 @@ var Green  = "http://dimoniche.cloudapp.net/svetofor_green.png";
 var Yellow = "http://dimoniche.cloudapp.net/svetofor_yellow.png";
 var Red    = "http://dimoniche.cloudapp.net/svetofor_red.png";
 
-var options = {
-
-    backgroundImage: TextBoxBackgroundImage,
-    count: TextBoxCount,
-    title: TextBoxTitle,
-    backBackgroundImage: TextBoxBackBackgroundImage,
-    backTitle: TextBoxBackTitle,
-    backContent: TextBoxBackContent
-};
-
 // количество пользователей
 var count_user;
-var URI;
 
 // обновление плитки
 function update_tile(URI)
 {
+    var options = {
+
+        backgroundImage: TextBoxBackgroundImage,
+        count: TextBoxCount,
+        title: TextBoxTitle,
+        backBackgroundImage: TextBoxBackBackgroundImage,
+        backTitle: TextBoxBackTitle,
+        backContent: TextBoxBackContent
+    };
+
     mpns.sendTile(URI,options);
 
     console.log('обновляем тайл');
@@ -169,7 +168,7 @@ var intervalID = setInterval(function()
                                     break;
                             }
 
-                            //update_tile(users[i].URIs);
+                            update_tile(users[i].URIs);
 
                             //console.log(users[i]);
                             //console.log(level);
@@ -233,10 +232,10 @@ http.createServer(function (req, res) {
                         count_user++;
 
                         // статистика
-                        db.stat.update({$set: {count_user: count_user,time: new Date()}}, function(err, saved) {
+                        /*db.stat.update({$set: {count_user: count_user,time: new Date()}}, function(err, saved) {
                             if( err || !saved ){
                             }
-                        });
+                        });*/
                     });
                 }
                 else users.forEach( function(User) {
@@ -244,7 +243,7 @@ http.createServer(function (req, res) {
                     console.log("Такой пользователь уже есть");
                     console.log(User);
 
-                    db.users.update({$set: {Latitude: latitude, Longitude: longitude,Town: town}}, function(err, updated) {
+                    db.users.update({URIs: live},{$set: {Latitude: latitude, Longitude: longitude,Town: town}}, function(err, updated) {
                         if( err || !updated ) console.log("User not updated");
                         else console.log("User updated");
                     });
@@ -260,7 +259,6 @@ http.createServer(function (req, res) {
         console.log('Ожидаем телефоны на порте ' + app.get('port_phone7'));
 
     });
-
 
 //отправим запрос яндексу - составим базу городов
 http.get("http://api-maps.yandex.ru/services/traffic-info/1.0/?format=json",
