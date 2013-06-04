@@ -52,6 +52,9 @@ function update_tile(URI,options)
     console.log('обновляем тайл');
 }
 
+// синхронные функции
+var Sync = require('sync');
+
 // запустим обновление тайлов
 var intervalID = setInterval(function()
     {   // это вызывается периодически
@@ -89,7 +92,7 @@ var intervalID = setInterval(function()
                         {
                             for(var i = 0; i < users.length; i++)
                             {
-                                db_town.town.find({name: users[i].Town}, function(err, town) {
+                                db_town.town.find.sync({name: users[i].Town}, function(err, town) {
 
                                     if( err || !town.length)
                                     {   // no town
