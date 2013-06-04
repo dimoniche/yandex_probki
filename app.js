@@ -55,21 +55,101 @@ function update_tile(URI,options)
 // синхронные функции
 var Sync = require('sync');
 
+function updateTile(jsonobj,user)
+{
+    var number_town = 0;
+    var town = 0;
+
+    var options = {
+
+        backgroundImage: TextBoxBackgroundImage,
+        count: TextBoxCount,
+        title: TextBoxTitle,
+        backBackgroundImage: TextBoxBackBackgroundImage,
+        backTitle: TextBoxBackTitle,
+        backContent: TextBoxBackContent
+    };
+
+    Sync(function()
+    {
+        town = db_town.town.findOne.sync(db_town.town,{name: user.Town});
+    });
+
+        //console.log("updateTile " + town.name);
+
+         /*if( err )
+         {   // no town
+             console.log("Ошибка " + err);
+             console.log(town.length);
+         }
+         else*/
+         {   // пользователь есть - обновим координаты и город
+             if(town.number != undefined){number_town = town.number;}
+             else                        {number_town = 0;}
+
+             console.log(number_town);
+             console.log(town.name);
+
+             var level = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.level;
+             var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
+             var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
+
+             if(level != undefined) {;}
+             else                  {level = 1;}
+
+             if(icon != undefined) {;}
+             else                  {icon = 'green';}
+
+             options.title       = level.toString();
+             options.backTitle   = ' ';
+             options.backContent = ' ';
+
+             switch(icon)
+             {
+                 case "green":
+                    options.backgroundImage = Green;
+                 break;
+                 case "yellow":
+                    options.backgroundImage = Yellow;
+                 break;
+                 case "red":
+                    options.backgroundImage = Red;
+                 break;
+             }
+
+             switch(name)
+             {
+                 case "Санкт-Петербург":
+                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
+                 break;
+                 case "Москва":
+                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
+                 break;
+                 case "Екатеринбург":
+                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
+                 break;
+                 case "Киев":
+                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
+                 break;
+                 default :
+                    options.backBackgroundImage = '';
+                 break;
+             }
+
+             update_tile(user.URIs,options);
+
+             console.log(user);
+             console.log(options.backgroundImage);
+             console.log(options.backBackgroundImage);
+         }
+}
+
 // запустим обновление тайлов
 var intervalID = setInterval(function()
     {   // это вызывается периодически
 
         // спросим у яндекса как там с пробками дела
         var jsonobj;        // объект со всеми пробками из яндекса
-        var options = {
-
-            backgroundImage: TextBoxBackgroundImage,
-            count: TextBoxCount,
-            title: TextBoxTitle,
-            backBackgroundImage: TextBoxBackBackgroundImage,
-            backTitle: TextBoxBackTitle,
-            backContent: TextBoxBackContent
-        };
 
         http.get("http://api-maps.yandex.ru/services/traffic-info/1.0/?format=json",
             function(res) {
@@ -92,74 +172,7 @@ var intervalID = setInterval(function()
                         {
                             for(var i = 0; i < users.length; i++)
                             {
-                                db_town.town.find.sync({name: users[i].Town}, function(err, town) {
-
-                                    if( err || !town.length)
-                                    {   // no town
-                                        console.log("Ошибка " + err);
-                                        console.log(town.length);
-                                    }
-                                    else
-                                    {   // пользователь есть - обновим координаты и город
-                                        if(town[0].number != undefined){number_town = town[0].number;}
-                                        else                           {number_town = 0;}
-
-                                        console.log(number_town);
-                                        console.log(town[0].name);
-
-                                        var level = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.level;
-                                        var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
-                                        var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
-
-                                        if(level != undefined) {;}
-                                        else                  {level = 1;}
-
-                                        if(icon != undefined) {;}
-                                        else                  {icon = 'green';}
-
-                                        options.title       = level.toString();
-                                        options.backTitle   = ' ';
-                                        options.backContent = ' ';
-
-                                        switch(icon)
-                                        {
-                                            case "green":
-                                                options.backgroundImage = Green;
-                                                break;
-                                            case "yellow":
-                                                options.backgroundImage = Yellow;
-                                                break;
-                                            case "red":
-                                                options.backgroundImage = Red;
-                                                break;
-                                        }
-
-                                        switch(name)
-                                        {
-                                            case "Санкт-Петербург":
-                                                options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
-                                                break;
-                                            case "Москва":
-                                                options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
-                                                break;
-                                            case "Екатеринбург":
-                                                options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
-                                                break;
-                                            case "Киев":
-                                                options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
-                                                break;
-                                            default :
-                                                options.backBackgroundImage = '';
-                                                break;
-                                        }
-
-                                        update_tile(users[i].URIs,options);
-
-                                        //console.log(users[i]);
-                                        console.log(options.backgroundImage);
-                                        console.log(options.backBackgroundImage);
-                                    }
-                                });
+                                updateTile(jsonobj,users[i]);
                             }
                         }
 
