@@ -58,7 +58,7 @@ var Sync = require('sync');
 function updateTile(jsonobj,user)
 {
     var number_town = 0;
-    var town = 0;
+    var town;
 
     var options = {
 
@@ -72,23 +72,16 @@ function updateTile(jsonobj,user)
 
     Sync(function()
     {
-        town = db_town.town.findOne.sync(db_town.town,{name: user.Town});
-    });
+         town = db_town.town.findOne.sync(db_town.town,{name: user.Town});
 
-        //console.log("updateTile " + town.name);
+         console.log("updateTile " + town.name);
 
-         /*if( err )
-         {   // no town
-             console.log("Ошибка " + err);
-             console.log(town.length);
-         }
-         else*/
          {   // пользователь есть - обновим координаты и город
              if(town.number != undefined){number_town = town.number;}
              else                        {number_town = 0;}
 
-             console.log(number_town);
-             console.log(town.name);
+             //console.log(number_town);
+             //console.log(town.name);
 
              var level = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.level;
              var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
@@ -138,11 +131,25 @@ function updateTile(jsonobj,user)
 
              update_tile(user.URIs,options);
 
-             console.log(user);
-             console.log(options.backgroundImage);
-             console.log(options.backBackgroundImage);
+             //console.log(name);
+             //console.log(options.backgroundImage);
+             //console.log(options.backBackgroundImage);
          }
+    },function(){});
 }
+
+var interval_update = setInterval(function()
+{
+    //обновим подключение к базе
+    db.users.findOne({name: "Москва"},function(err, users) {
+        console.log('обновляем подключение к базе пользователей');
+    });
+
+    db_town.town.findOne({name: "Москва"},function(){
+        console.log('обновляем подключение к базе городов');
+    });
+
+},30000);
 
 // запустим обновление тайлов
 var intervalID = setInterval(function()
@@ -174,16 +181,16 @@ var intervalID = setInterval(function()
                             {
                                 updateTile(jsonobj,users[i]);
                             }
-                        }
 
-                        console.log('все обновили');
+                            console.log('все обновили');
+                        }
                     });
                 });
             }).on('error', function(e) {
                 console.log("Got error: " + e.message);
             });
     }
-    ,30000);
+    ,300000);
 
 // ожидание новых пользователей
 http.createServer(function (req, res) {
@@ -214,10 +221,23 @@ http.createServer(function (req, res) {
 
             if(jsonobj.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found != 0)
             {
+                var OK = 1;
+
                 if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.Locality != undefined)
                 {
                     town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.Locality.LocalityName;
+                }
+                else if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality != undefined)
+                {
+                    town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality.LocalityName;
+                }
+                else
+                {
+                    OK = 0;
+                }
 
+                if(OK == 1)
+                {
                     db.users.find({URIs: live}, function(err, users) {
                         if( err || !users.length)
                         { // no user
