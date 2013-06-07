@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ebb476d-19c3-40f0-9e1a-d5aece9440b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="yandex.iws" />
@@ -26,7 +25,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="186" column="0" selection-start="6817" selection-end="6817" vertical-scroll-proportion="0.6698337">
+            <state line="186" column="0" selection-start="6817" selection-end="6817" vertical-scroll-proportion="0.54513067">
               <folding>
                 <element signature="e#4023#5537#0" expanded="false" />
                 <element signature="e#5560#6518#0" expanded="false" />
@@ -392,7 +391,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="0" selection-start="6817" selection-end="6817" vertical-scroll-proportion="0.6698337">
+        <state line="186" column="0" selection-start="6817" selection-end="6817" vertical-scroll-proportion="0.54513067">
           <folding>
             <element signature="e#4023#5537#0" expanded="false" />
             <element signature="e#5560#6518#0" expanded="false" />

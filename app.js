@@ -186,7 +186,7 @@ function updateTile(jsonobj,user)
                      console.log("Обновляем Тайл в городе " + town.name);
 
                      // запишем текущее значение уровня пробок
-                     db.town.update({name: user.Town},{$set: {level: level}}, function(err, updated) {
+                     db_town.town.update({name: user.Town},{$set: {level: level}}, function(err, updated) {
                          if( err || !updated ) console.log("level not updated");
                          else console.log("level updated");
                      });
