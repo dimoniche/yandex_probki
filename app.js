@@ -59,6 +59,8 @@ var no_probki = "http://dimoniche.cloudapp.net/no_probki.png";
 
 // количество пользователей
 var count_user;
+// счетчик обновлений тайла
+var counter_update = 0;
 
 // обновление плитки
 function update_tile(URI,options)
@@ -111,8 +113,8 @@ function updateTile(jsonobj,user)
                  if(icon != undefined) {;}
                  else                  {icon = 'green';}
 
-                 if(level != town.level)
-                 {  // уровень пробок изменился - обновим картинку
+                 if((level != town.level) || (counter_update >= 60))
+                 {  // уровень пробок изменился - обновим картинку - так же обязательно раз в пол часа
                      options.title       = ' ';
                      options.backTitle   = ' ';
                      options.backContent = ' ';
@@ -221,6 +223,9 @@ var intervalID = setInterval(function()
                 res.on('end', function () {
 
                     jsonobj = JSON.parse(data);
+
+                    if(counter_update <= 60) counter_update++;
+                    else counter_update = 0;
 
                     //  смотрим по базе всех пользователей
                     db.users.find(function(err, users) {
