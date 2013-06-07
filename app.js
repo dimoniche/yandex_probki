@@ -41,6 +41,22 @@ var Green  = "http://dimoniche.cloudapp.net/svetofor_green.png";
 var Yellow = "http://dimoniche.cloudapp.net/svetofor_yellow.png";
 var Red    = "http://dimoniche.cloudapp.net/svetofor_red.png";
 
+var Green1  = "http://dimoniche.cloudapp.net/svetofor_green_1.png";
+var Green2  = "http://dimoniche.cloudapp.net/svetofor_green_2.png";
+var Green3  = "http://dimoniche.cloudapp.net/svetofor_green_3.png";
+
+var Yellow4 = "http://dimoniche.cloudapp.net/svetofor_yellow_4.png";
+var Yellow5 = "http://dimoniche.cloudapp.net/svetofor_yellow_5.png";
+var Yellow6 = "http://dimoniche.cloudapp.net/svetofor_yellow_6.png";
+
+var Red7    = "http://dimoniche.cloudapp.net/svetofor_red_7.png";
+var Red8    = "http://dimoniche.cloudapp.net/svetofor_red_8.png";
+var Red9    = "http://dimoniche.cloudapp.net/svetofor_red_9.png";
+var Red10   = "http://dimoniche.cloudapp.net/svetofor_red_10.png";
+
+var no_gorod  = "http://dimoniche.cloudapp.net/no_gorod.png";
+var no_probki = "http://dimoniche.cloudapp.net/no_probki.png";
+
 // количество пользователей
 var count_user;
 
@@ -74,66 +90,111 @@ function updateTile(jsonobj,user)
     {
          town = db_town.town.findOne.sync(db_town.town,{name: user.Town});
 
-         console.log("updateTile " + town.name);
+         if(town != undefined)
+         {   // такой город нашли в базе яндекса
+             console.log("updateTile " + town.name);
 
-         {   // пользователь есть - обновим координаты и город
-             if(town.number != undefined){number_town = town.number;}
-             else                        {number_town = 0;}
+             {   // пользователь есть - обновим координаты и город
+                 if(town.number != undefined){number_town = town.number;}
+                 else                        {number_town = 0;}
 
-             //console.log(number_town);
-             //console.log(town.name);
+                 //console.log(number_town);
+                 //console.log(town.name);
 
-             var level = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.level;
-             var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
-             var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
+                 var level = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.level;
+                 var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
+                 var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
 
-             if(level != undefined) {;}
-             else                  {level = 1;}
+                 if(level != undefined) {;}
+                 else                  {level = 11;}
 
-             if(icon != undefined) {;}
-             else                  {icon = 'green';}
+                 if(icon != undefined) {;}
+                 else                  {icon = 'green';}
 
-             options.title       = level.toString();
-             options.backTitle   = ' ';
-             options.backContent = ' ';
+                 options.title       = level.toString();
+                 options.backTitle   = ' ';
+                 options.backContent = ' ';
 
-             switch(icon)
-             {
-                 case "green":
-                    options.backgroundImage = Green;
-                 break;
-                 case "yellow":
-                    options.backgroundImage = Yellow;
-                 break;
-                 case "red":
-                    options.backgroundImage = Red;
-                 break;
+                 /*switch(icon)
+                 {
+                     case "green":
+                        options.backgroundImage = Green;
+                     break;
+                     case "yellow":
+                        options.backgroundImage = Yellow;
+                     break;
+                     case "red":
+                        options.backgroundImage = Red;
+                     break;
+                 }*/
+
+                 switch(level)
+                 {
+                     case 1:
+                         options.backgroundImage = Green1;
+                         break;
+                     case 2:
+                         options.backgroundImage = Green2;
+                         break;
+                     case 3:
+                         options.backgroundImage = Green3;
+                         break;
+
+
+                     case 4:
+                         options.backgroundImage = Yellow4;
+                         break;
+                     case 5:
+                         options.backgroundImage = Yellow5;
+                         break;
+                     case 6:
+                         options.backgroundImage = Yellow6;
+                         break;
+
+
+                     case 7:
+                         options.backgroundImage = Red7;
+                         break;
+                     case 8:
+                         options.backgroundImage = Red8;
+                         break;
+                     case 9:
+                         options.backgroundImage = Red9;
+                         break;
+                     case 10:
+                         options.backgroundImage = Red10;
+                         break;
+
+                      case 11:
+                         options.backgroundImage = no_probki;
+                      break;
+                 }
+
+                 switch(name)
+                 {
+                     case "Санкт-Петербург":
+                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
+                     break;
+                     case "Москва":
+                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
+                     break;
+                     case "Екатеринбург":
+                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
+                     break;
+                     case "Киев":
+                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
+                     break;
+                     default :
+                        options.backBackgroundImage = no_gorod;
+                     break;
+                 }
+
+                 update_tile(user.URIs,options);
+
+                 //console.log(name);
+                 console.log(options.backgroundImage);
+                 //console.log(options.backBackgroundImage);
              }
-
-             switch(name)
-             {
-                 case "Санкт-Петербург":
-                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
-                 break;
-                 case "Москва":
-                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
-                 break;
-                 case "Екатеринбург":
-                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
-                 break;
-                 case "Киев":
-                    options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
-                 break;
-                 default :
-                    options.backBackgroundImage = '';
-                 break;
-             }
-
-             update_tile(user.URIs,options);
-
-             //console.log(name);
-             //console.log(options.backgroundImage);
-             //console.log(options.backBackgroundImage);
          }
     },function(){});
 }
@@ -203,7 +264,7 @@ http.createServer(function (req, res) {
 
     var town;
 
-    http.get("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&kind=locality&results=1",
+    http.get("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&results=1",
         function(res) {
         // получим название города поьзователя
         var data = '';
@@ -217,7 +278,7 @@ http.createServer(function (req, res) {
             // название города нашли - вносим в базу
             var jsonobj = JSON.parse(data);
 
-            console.log("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&kind=locality&results=1");
+            //console.log("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&results=1");
 
             if(jsonobj.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found != 0)
             {
