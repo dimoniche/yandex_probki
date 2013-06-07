@@ -26,7 +26,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="220" column="18" selection-start="8086" selection-end="8086" vertical-scroll-proportion="0.3432304">
+            <state line="241" column="0" selection-start="8779" selection-end="8779" vertical-scroll-proportion="0.5760095">
               <folding>
                 <element signature="e#4141#5655#0" expanded="false" />
                 <element signature="e#5678#6636#0" expanded="false" />
@@ -124,12 +124,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="options.searchVisible" value="true" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Node.js.app.js">
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="$PROJECT_DIR$" coffeescript-run="false">
@@ -392,7 +392,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="220" column="18" selection-start="8086" selection-end="8086" vertical-scroll-proportion="0.3432304">
+        <state line="241" column="0" selection-start="8779" selection-end="8779" vertical-scroll-proportion="0.5760095">
           <folding>
             <element signature="e#4141#5655#0" expanded="false" />
             <element signature="e#5678#6636#0" expanded="false" />

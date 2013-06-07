@@ -236,8 +236,13 @@ var intervalID = setInterval(function()
                                 updateTile(jsonobj,users[i]);
                             }
 
-                            console.log('все обновили');
+                            //console.log('все обновили');
                         }
+                    });
+
+                    // обновим соединение к базе
+                    db_town.town.find("Москва",function(err, users) {
+                        //console.log('все обновили');
                     });
                 });
             }).on('error', function(e) {
