@@ -105,112 +105,100 @@ function updateTile(jsonobj,user)
                  var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
                  var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
 
-                 if(level != undefined) {;}
+                 if(level != undefined){;}
                  else                  {level = 11;}
 
                  if(icon != undefined) {;}
                  else                  {icon = 'green';}
 
-                 options.title       = level.toString();
-                 options.backTitle   = ' ';
-                 options.backContent = ' ';
+                 if(level != town.level)
+                 {  // уровень пробок изменился - обновим картинку
+                     options.title       = ' ';
+                     options.backTitle   = ' ';
+                     options.backContent = ' ';
 
-                 /*switch(icon)
-                 {
-                     case "green":
-                        options.backgroundImage = Green;
-                     break;
-                     case "yellow":
-                        options.backgroundImage = Yellow;
-                     break;
-                     case "red":
-                        options.backgroundImage = Red;
-                     break;
-                 }*/
+                     switch(level)
+                     {
+                         case 1:
+                             options.backgroundImage = Green1;
+                             break;
+                         case 2:
+                             options.backgroundImage = Green2;
+                             break;
+                         case 3:
+                             options.backgroundImage = Green3;
+                             break;
 
-                 switch(level)
-                 {
-                     case 1:
-                         options.backgroundImage = Green1;
-                         break;
-                     case 2:
-                         options.backgroundImage = Green2;
-                         break;
-                     case 3:
-                         options.backgroundImage = Green3;
-                         break;
-
-
-                     case 4:
-                         options.backgroundImage = Yellow4;
-                         break;
-                     case 5:
-                         options.backgroundImage = Yellow5;
-                         break;
-                     case 6:
-                         options.backgroundImage = Yellow6;
-                         break;
+                         case 4:
+                             options.backgroundImage = Yellow4;
+                             break;
+                         case 5:
+                             options.backgroundImage = Yellow5;
+                             break;
+                         case 6:
+                             options.backgroundImage = Yellow6;
+                             break;
 
 
-                     case 7:
-                         options.backgroundImage = Red7;
-                         break;
-                     case 8:
-                         options.backgroundImage = Red8;
-                         break;
-                     case 9:
-                         options.backgroundImage = Red9;
-                         break;
-                     case 10:
-                         options.backgroundImage = Red10;
-                         break;
+                         case 7:
+                             options.backgroundImage = Red7;
+                             break;
+                         case 8:
+                             options.backgroundImage = Red8;
+                             break;
+                         case 9:
+                             options.backgroundImage = Red9;
+                             break;
+                         case 10:
+                             options.backgroundImage = Red10;
+                             break;
 
-                      case 11:
-                         options.backgroundImage = no_probki;
-                      break;
+                          case 11:
+                             options.backgroundImage = no_probki;
+                          break;
+                     }
+
+                     switch(name)
+                     {
+                         case "Санкт-Петербург":
+                            options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
+                         break;
+                         case "Москва":
+                            options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
+                         break;
+                         case "Екатеринбург":
+                            options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
+                         break;
+                         case "Киев":
+                            options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
+                         break;
+                         default :
+                            options.backBackgroundImage = no_gorod;
+                         break;
+                     }
+
+                     update_tile(user.URIs,options);
+
+                     //console.log(name);
+                     //console.log(options.backgroundImage);
+                     //console.log(options.backBackgroundImage);
+
+                     console.log("Обновляем Тайл в городе " + town.name);
+
+                     // запишем текущее значение уровня пробок
+                     db.town.update({name: user.Town},{$set: {level: level}}, function(err, updated) {
+                         if( err || !updated ) console.log("level not updated");
+                         else console.log("level updated");
+                     });
                  }
-
-                 switch(name)
+                 else
                  {
-                     case "Санкт-Петербург":
-                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/spb/tends_200.png';
-                     break;
-                     case "Москва":
-                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/moscow/tends_200.png';
-                     break;
-                     case "Екатеринбург":
-                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/ekb/tends_200.png';
-                     break;
-                     case "Киев":
-                        options.backBackgroundImage = 'http://info.maps.yandex.net/traffic/kiev/tends_200.png';
-                     break;
-                     default :
-                        options.backBackgroundImage = no_gorod;
-                     break;
+                     console.log("Уровень пробок не изменился в городе " + town.name);
                  }
-
-                 update_tile(user.URIs,options);
-
-                 //console.log(name);
-                 console.log(options.backgroundImage);
-                 //console.log(options.backBackgroundImage);
              }
          }
     },function(){});
 }
-
-var interval_update = setInterval(function()
-{
-    //обновим подключение к базе
-    db.users.findOne({name: "Москва"},function(err, users) {
-        console.log('обновляем подключение к базе пользователей');
-    });
-
-    db_town.town.findOne({name: "Москва"},function(){
-        console.log('обновляем подключение к базе городов');
-    });
-
-},30000);
 
 // запустим обновление тайлов
 var intervalID = setInterval(function()
@@ -251,7 +239,7 @@ var intervalID = setInterval(function()
                 console.log("Got error: " + e.message);
             });
     }
-    ,300000);
+    ,30000);
 
 // ожидание новых пользователей
 http.createServer(function (req, res) {
@@ -362,7 +350,7 @@ http.createServer(function (req, res) {
 
         for( var i = 0,length = jsonobj.GeoObjectCollection.features.length; i < length; i++ )
         {
-            db_town.town.save({name: jsonobj.GeoObjectCollection.features[i].properties.name.toString(), number: i}, function(err, saved) {
+            db_town.town.save({name: jsonobj.GeoObjectCollection.features[i].properties.name.toString(), number: i , level: 1}, function(err, saved) {
                 if( err || !saved ){
                     console.log("Town not saved");
                     // нужно что  то сделать
