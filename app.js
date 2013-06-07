@@ -92,7 +92,7 @@ function updateTile(jsonobj,user)
 
          if(town != undefined)
          {   // такой город нашли в базе яндекса
-             console.log("updateTile " + town.name);
+             //console.log("updateTile " + town.name);
 
              {   // пользователь есть - обновим координаты и город
                  if(town.number != undefined){number_town = town.number;}
