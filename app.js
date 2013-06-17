@@ -6,7 +6,7 @@
 //var express = require('express')
 //var routes = require('./routes')
 //var user = require('./routes/user')
-var http = require('http')
+var http = require('http');
 var path = require('path');
 
 var net  = require('net');
@@ -92,13 +92,13 @@ function updateTile(jsonobj,user)
     {
          town = db_town.town.findOne.sync(db_town.town,{name: user.Town});
 
-         if(town != undefined)
+         if(town !== undefined)
          {   // такой город нашли в базе яндекса
              //console.log("updateTile " + town.name);
 
              {   // пользователь есть - обновим координаты и город
-                 if(town.number != undefined){number_town = town.number;}
-                 else                        {number_town = 0;}
+                 if(town.number !== undefined){number_town = town.number;}
+                 else                         {number_town = 0;}
 
                  //console.log(number_town);
                  //console.log(town.name);
@@ -107,10 +107,10 @@ function updateTile(jsonobj,user)
                  var icon  = jsonobj.GeoObjectCollection.features[number_town].properties.JamsMetaData.icon;
                  var name  = jsonobj.GeoObjectCollection.features[number_town].properties.name;
 
-                 if(level != undefined){;}
+                 if(level !== undefined){;}
                  else                  {level = 11;}
 
-                 if(icon != undefined) {;}
+                 if(icon !== undefined) {;}
                  else                  {icon = 'green';}
 
                  if((level != town.level) || (counter_update >= 60))
@@ -277,15 +277,15 @@ http.createServer(function (req, res) {
 
             //console.log("http://geocode-maps.yandex.ru/1.x/?geocode="+longitude+","+latitude+"&format=json&results=1");
 
-            if(jsonobj.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found != 0)
+            if(jsonobj.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found !== 0)
             {
                 var OK = 1;
 
-                if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.Locality != undefined)
+                if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.Locality !== undefined)
                 {
                     town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.Locality.LocalityName;
                 }
-                else if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality != undefined)
+                else if(jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality !== undefined)
                 {
                     town = jsonobj.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality.LocalityName;
                 }
@@ -300,7 +300,7 @@ http.createServer(function (req, res) {
                         if( err || !users.length)
                         { // no user
                             console.log("Такого пользователя нет - добавляем");
-                            console.log('Город: ' + town.toString());
+                            //console.log('Город: ' + town.toString());
 
                             db.users.save({name: "name",
                                 URIs: live,

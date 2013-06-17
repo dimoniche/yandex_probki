@@ -26,10 +26,10 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="240" column="0" selection-start="8778" selection-end="8778" vertical-scroll-proportion="0.62589073">
+            <state line="302" column="30" selection-start="11311" selection-end="11311" vertical-scroll-proportion="0.32304037">
               <folding>
-                <element signature="e#4141#5655#0" expanded="false" />
-                <element signature="e#5678#6636#0" expanded="false" />
+                <element signature="e#4147#5661#0" expanded="false" />
+                <element signature="e#5684#6642#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -84,6 +84,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -118,7 +119,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -126,7 +126,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../server" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -175,7 +175,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1040" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -254,8 +254,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -264,8 +264,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="88" column="36" selection-start="2226" selection-end="2226" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -274,8 +274,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -284,8 +284,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -294,8 +294,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -304,8 +304,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="108" column="33" selection-start="2701" selection-end="2701" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -314,8 +314,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -324,8 +324,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -334,8 +334,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -344,8 +344,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -354,8 +354,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -364,8 +364,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -374,8 +374,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -392,10 +392,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="240" column="0" selection-start="8778" selection-end="8778" vertical-scroll-proportion="0.62589073">
+        <state line="302" column="30" selection-start="11311" selection-end="11311" vertical-scroll-proportion="0.32304037">
           <folding>
-            <element signature="e#4141#5655#0" expanded="false" />
-            <element signature="e#5678#6636#0" expanded="false" />
+            <element signature="e#4147#5661#0" expanded="false" />
+            <element signature="e#5684#6642#0" expanded="false" />
           </folding>
         </state>
       </provider>
